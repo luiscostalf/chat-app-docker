@@ -41,7 +41,7 @@ Before running the project, ensure you have the following installed:
 
 1. Clone this repository:
 
-- git clone https://github.com/YourUsername/emotions-chat-app.git
+- git clone https://github.com/luiscostalf/emotions-chat-app.git
 - cd emotions-chat-app
 
 2. Build the Docker image for the Emotions Chat App:
