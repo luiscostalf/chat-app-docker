@@ -1,0 +1,51 @@
+version: "3"
+services:
+  chat:
+    image: emotions-chat
+    ports: 
+      - "8089:8080"
+    environment:
+      - env=dev
+    depends_on:
+      - mongodb
+      - emotions
+    working_dir: /opt/chat-api
+    command: './scripts/run.js'
+  emotions:
+    image: emotions-chat
+    working_dir: /opt/emotions-api
+    command: 'gunicorn emotions_api.wsgi:application -c ./gunicorn.conf.py --error-logfile /var/log/gunicorn_error.log --access-logfile /var/log/gunicorn_access.log --capture-output --log-level debug'
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+  mongodb:
+    image: mongo:6.0.8
+    volumes:
+      - /opt/chat-api/data/db:/data/db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'luis'
+      MONGO_INITDB_ROOT_PASSWORD: 'password'
+      MONGO_INITDB_NET_BINDIP: '0.0.0.0'
+  chat-site:
+    image: ange10k/angularcli:16
+    ports: 
+      - "4200:4200"
+    volumes:
+      - ./chat-site:/opt/chat-site
+    working_dir: /opt/chat-site
+    depends_on:
+      - chat
+    links:
+      - chat
+    command: bash -c "
+      npm i 
+      && ng serve --host 0.0.0.0"
+networks:
+  default:
+    external:
+      name: dev

@@ -1,0 +1,25 @@
+<div class="chat-container">
+  <div class="message-list">
+    <!-- Messages will go here -->
+    <div *ngFor="let message of messages.slice().reverse()" class="message-content" (click)="openMessageDetails(message)" [ngClass]="{'received': message.sender !== 'user', 'sent': message.sender === 'user'}">
+      <div class="emoji">{{ message.emoji}}</div>
+      <div class="message-text">{{ message.message }}</div>
+      <div *ngIf="message.viewed" class="checkmark">✓</div>
+      <div *ngIf="message.details" class="message-details">
+        <div><b>Emotions:</b></div>
+        <div *ngFor="let emotion of message.emotions | keyvalue">{{ emotion.key }}: {{ emotion.value }}</div>
+        <div><b>Irony:</b></div>
+        <div *ngFor="let irony of message.irony | keyvalue">{{ irony.key }}: {{ irony.value }}</div>
+        <div><b>Sentiment:</b></div>
+        <div *ngFor="let sentiment of message.sentiment | keyvalue">{{ sentiment.key }}: {{ sentiment.value }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input [(ngModel)]="newMessage" placeholder="Type your message..." class="message-input">
+    <button (click)="sendMessage()" class="send-button">Send</button>
+  </div>
+</div>
+
+<button class="floating-button" (click)="toggleButtonText()">{{buttonText}}</button>

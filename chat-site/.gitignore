@@ -1,0 +1,52 @@
+# See https://www.gitignore.io/api/angular
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# Angular generated files
+/dist/
+/tmp/
+/*.ngfactory.ts
+/*.ngstyle.ts
+/*.ngsummary.json
+/*.ngstyle.js
+/*.ngsummary.js
+/*.ngfactory.js
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+*.iml
+
+# Compiled output
+/out-tsc/
+
+# Testing files
+/karma.conf.js
+/karma-*_reporter.js
+/protractor.conf.js
+
+# Dependency directories
+/dist
+/assets
+/src/environments/
+/coverage/
+/e2e/
+/docs/
+/.yarn
+/.pnp
+
+# Environment variables
+.env
+.env.prod
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+.angular
